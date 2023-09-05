@@ -1,0 +1,34 @@
+<html>
+  <body>
+    <label>Username</label>
+    <input type="text" id="username" /><br /><br />
+    <label>Password</label>
+    <input type="text" id="password" /><br /><br />
+    <input type="button" value="submit" onclick="login()" />
+    <label style="color: red" id="errorMsg"></label>
+  </body>
+  <script>
+    async function login() {
+      var payload = {
+        username: document.getElementById("username").value,
+        password: document.getElementById("password").value,
+      };
+      var reach = await fetch("https://dummyjson.com/auth/login", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (reach.status == 200) {
+        var data = await reach.json();
+        console.log(data, reach, "success");
+        localStorage.setItem("authToken", data.token);
+      } else {
+        document.getElementById("errorMsg").innerText =
+          "Invalid username or password";
+      }
+    }
+  </script>
+</html>
