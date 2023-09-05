@@ -1,0 +1,22 @@
+<html>
+  <body>
+    <input type="button" value="submit" onclick="login()" />
+    <script>
+      async function login() {
+        var loginDetails = {
+          username: "kminchelle",
+          password: "0lelplR",
+        };
+        var response = await fetch("https://dummyjson.com/auth/login", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(loginDetails),
+        });
+        var data = await response.json();
+        console.log(data.token);
+      }
+    </script>
+  </body>
+</html>
